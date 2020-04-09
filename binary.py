@@ -4,10 +4,10 @@ import math
 import time
 
 # Constant value for the size of the list.
-sizeOfList = pow(10, 6)
+sizeOfList = pow(10, 1)
 
 # Constant value for the size of the numbers in the list.
-listRange = pow(100, 15)
+listRange = pow(100, 2)
 
 # generateList ... Returns a sorted list of n elements.
 def generateList(n):
@@ -19,25 +19,36 @@ def generateList(n):
     return values
 
 # binarySearch ... Search list values for target using a the binary search algorithm.
-def binarySearch(values, target):
+def binarySearch(values, target, debug=False):
     floorBounds = 0
-    roofBounds = sizeOfList - 1    
-    targetIndex = -1
+    roofBounds = sizeOfList - 1   
 
-    while (floorBounds < roofBounds):
-        middleIndex = math.floor((floorBounds + roofBounds) * .5)
+    if(debug):
+        print("Target Value: " + str(target))
+
+    while (floorBounds <= roofBounds):
+        middleIndex = math.floor((floorBounds + roofBounds) / 2)
+
+        if (debug):
+            print("Middle Index: " + str(middleIndex))
+            print("Value: " + str(values[middleIndex]))
 
         if values[middleIndex] < target:
             floorBounds = middleIndex + 1
 
+            if (debug):
+                print("Less than target!")
+
         elif values[middleIndex] > target:
             roofBounds = middleIndex - 1
 
-        else:
-            targetIndex = middleIndex
-            return targetIndex
+            if (debug):
+                print("Greater than target!")
 
-    return targetIndex
+        elif values[middleIndex] == target:
+            return middleIndex
+
+    return -1
     
 
 def main():
@@ -50,6 +61,10 @@ def main():
     pastTime = time.time()
     index = binarySearch(values, targetValue)
     currentTime = time.time()
+
+    if index == -1:
+        print(values)
+        binarySearch(values, targetValue, True)
 
     print("Target Value: " + str(targetValue))
     print("Index: " + str(index))
