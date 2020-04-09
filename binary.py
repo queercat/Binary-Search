@@ -23,7 +23,7 @@ def binarySearch(values, target, debug=False):
     floorBounds = 0
     roofBounds = sizeOfList - 1   
 
-    if(debug):
+    if (debug):
         print("Target Value: " + str(target))
 
     while (floorBounds <= roofBounds):
